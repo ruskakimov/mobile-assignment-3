@@ -27,7 +27,7 @@ class DetailsActivity : AppCompatActivity() {
 
         // UI elements
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        val decorTitle: TextView = findViewById(R.id.decor_title)
+        val decorTitle: TextView = findViewById(R.id.title)
         val poseImage: ImageView = findViewById(R.id.pose_image)
 
         // Set up the toolbar
@@ -35,7 +35,6 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
-        toolbar.title = poseName + " Pose"
         decorTitle.text = poseName
         poseImage.setImageResource(imageResId)
     }

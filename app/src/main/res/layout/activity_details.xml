@@ -13,37 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:title="Cat Pose"
+        app:title="Pose Details"
         app:titleTextAppearance="@style/TitleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:letterSpacing="-0.01"
+        android:text="Crescent Lunge on the Knee"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/pose_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/pose_warrior_kneeling"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
-
-    <TextView
-        android:id="@+id/decor_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:letterSpacing="-0.03"
-        android:lineSpacingExtra="-4dp"
-        android:text="Crescent Lunge on the Knee"
-        android:textSize="64sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:alpha="0.15"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImageView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

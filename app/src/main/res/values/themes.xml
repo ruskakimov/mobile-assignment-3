@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.YogaBook" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/primary</item>
+        <item name="android:windowBackground">@color/light_beige</item>
     </style>
 
     <style name="MyToolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -17,6 +18,11 @@
         <item name="android:shadowDx">2</item>
         <item name="android:shadowDy">2</item>
         <item name="android:shadowRadius">3</item>
+    </style>
+
+    <style name="RoundedCornersImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="Theme.YogaBook" parent="Base.Theme.YogaBook" />
