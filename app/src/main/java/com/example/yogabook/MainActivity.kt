@@ -19,6 +19,13 @@ val poses = listOf(
     Pose("Cat", R.drawable.pose_cat),
     Pose("Cow", R.drawable.pose_cow),
     Pose("Banana", R.drawable.pose_banana),
+    Pose("Bound Angle", R.drawable.pose_bound_angle),
+    Pose("Box Neutral", R.drawable.pose_box_neutral),
+    Pose("Butterfly", R.drawable.pose_butterfly),
+    Pose("Chair", R.drawable.pose_chair),
+    Pose("Downward Dog", R.drawable.pose_downward_dog),
+    Pose("Goddess", R.drawable.pose_goddess),
+    Pose("Crescent Lunge on the Knee", R.drawable.pose_warrior_kneeling),
 )
 
 class MainActivity : AppCompatActivity(), OnCardClickListener {
