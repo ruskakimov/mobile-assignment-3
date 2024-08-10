@@ -34,13 +34,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Difficulty – Easy"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration – 2 min"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficulty" />
+
     <ImageView
         android:id="@+id/pose_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/pose_warrior_kneeling"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/duration" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
