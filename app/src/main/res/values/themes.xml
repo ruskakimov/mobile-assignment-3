@@ -6,10 +6,5 @@
         <item name="android:windowBackground">@color/light_beige</item>
     </style>
 
-    <style name="RoundedCornersImageView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">8dp</item>
-    </style>
-
     <style name="Theme.YogaBook" parent="Base.Theme.YogaBook" />
 </resources>
