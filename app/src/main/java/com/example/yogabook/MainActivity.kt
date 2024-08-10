@@ -1,5 +1,6 @@
 package com.example.yogabook
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
     }
 
     override fun onCardClick(pose: Pose) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("poseName", pose.name)
+        intent.putExtra("poseImageResId", pose.imageResId)
+        startActivity(intent)
     }
 }
 
