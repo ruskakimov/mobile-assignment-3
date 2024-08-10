@@ -2,6 +2,8 @@ package com.example.yogabook
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,12 +27,17 @@ class DetailsActivity : AppCompatActivity() {
 
         // UI elements
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val decorTitle: TextView = findViewById(R.id.decor_title)
+        val poseImage: ImageView = findViewById(R.id.pose_image)
 
         // Set up the toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
+
         toolbar.title = poseName + " Pose"
+        decorTitle.text = poseName
+        poseImage.setImageResource(imageResId)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
