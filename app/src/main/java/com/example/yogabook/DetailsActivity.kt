@@ -15,7 +15,7 @@ import java.util.TimerTask
 
 class DetailsActivity : AppCompatActivity() {
     // Timer state
-    val timer = Timer()
+    var timer: Timer? = null
     var elapsedSeconds = 0
 
     // Intent data
@@ -89,18 +89,24 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun onPlayButtonClick() {
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                elapsedSeconds++
-                runOnUiThread {
-                    // Update the UI here
-                    durationTextView.text = if (elapsedSeconds < maxDuration) getTimerStateString() else getDurationString()
+        timer?.cancel()
+        elapsedSeconds = 0
+
+        timer = Timer().also {
+            it.schedule(object : TimerTask() {
+                override fun run() {
+                    elapsedSeconds++
+                    println(elapsedSeconds)
+                    runOnUiThread {
+                        // Update the UI here
+                        durationTextView.text = if (elapsedSeconds < maxDuration) getTimerStateString() else getDurationString()
+                    }
+                    if (elapsedSeconds >= maxDuration) {
+                        it.cancel()
+                    }
                 }
-                if (elapsedSeconds >= maxDuration) {
-                    timer.cancel()
-                }
-            }
-        }, 0, 1000)
+            }, 0, 1000)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
