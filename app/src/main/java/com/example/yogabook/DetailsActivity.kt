@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class DetailsActivity : AppCompatActivity() {
     lateinit var durationTextView: TextView
     lateinit var poseImageView: ImageView
     lateinit var playButton: ImageButton
+    lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class DetailsActivity : AppCompatActivity() {
         durationTextView = findViewById(R.id.duration)
         poseImageView = findViewById(R.id.pose_image)
         playButton = findViewById(R.id.imageButton)
+        progressBar = findViewById(R.id.toolbar_progress)
 
         // Set up the toolbar
         setSupportActionBar(toolbar)
@@ -94,6 +97,8 @@ class DetailsActivity : AppCompatActivity() {
         elapsedSeconds = 0
         playButton.setImageResource(R.drawable.baseline_play_arrow_24)
         durationTextView.text = getDurationString()
+        progressBar.progress = 0
+        progressBar.visibility = ProgressBar.GONE
     }
 
     private fun onPlayButtonClick() {
@@ -106,23 +111,23 @@ class DetailsActivity : AppCompatActivity() {
         cleanUpTimer()
 
         // Update UI
-        durationTextView.text = getTimerStateString()
+        progressBar.visibility = ProgressBar.VISIBLE
         playButton.setImageResource(R.drawable.baseline_stop_24)
 
         timer = Timer().also {
             it.schedule(object : TimerTask() {
                 override fun run() {
-                    elapsedSeconds++
-                    println(elapsedSeconds)
                     runOnUiThread {
                         // Update the UI here
                         durationTextView.text = if (elapsedSeconds < maxDuration) getTimerStateString() else getDurationString()
+                        progressBar.progress = (elapsedSeconds * 100) / maxDuration
                     }
                     if (elapsedSeconds >= maxDuration) {
                         cleanUpTimer()
                     }
+                    elapsedSeconds++
                 }
-            }, 1000, 1000)
+            }, 0, 1000)
         }
     }
 

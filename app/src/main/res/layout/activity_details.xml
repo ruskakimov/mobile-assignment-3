@@ -11,12 +11,29 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        app:title="Pose Details"
         android:background="@color/primary"
+        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Pose Details" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/toolbar_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-6dp"
+        android:layout_gravity="bottom"
+        android:alpha="0.25"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/black"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/title"
@@ -38,9 +55,9 @@
         android:id="@+id/difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Difficulty – Easy"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Difficulty – Easy"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -49,9 +66,9 @@
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration – 2 min"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Duration – 2 min"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/difficulty" />
@@ -63,8 +80,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/round_button"
-        android:elevation="2dp"
         android:contentDescription="Play"
+        android:elevation="2dp"
         android:src="@drawable/baseline_play_arrow_24"
         android:stateListAnimator="@animator/scale_down_on_press"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,9 +91,9 @@
         android:id="@+id/pose_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/pose_warrior_kneeling"
         android:layout_marginTop="32dp"
+        android:src="@drawable/pose_warrior_kneeling"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toBottomOf="@id/duration" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
