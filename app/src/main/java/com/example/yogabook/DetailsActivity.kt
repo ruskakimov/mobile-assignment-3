@@ -89,8 +89,17 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun onPlayButtonClick() {
-        timer?.cancel()
-        elapsedSeconds = 0
+        // Pause
+        if (timer != null) {
+            timer?.cancel()
+            timer = null
+            return
+        }
+
+        // Reset when completed
+        if (elapsedSeconds >= maxDuration) {
+            elapsedSeconds = 0
+        }
 
         timer = Timer().also {
             it.schedule(object : TimerTask() {
@@ -103,6 +112,7 @@ class DetailsActivity : AppCompatActivity() {
                     }
                     if (elapsedSeconds >= maxDuration) {
                         it.cancel()
+                        timer = null
                     }
                 }
             }, 0, 1000)
