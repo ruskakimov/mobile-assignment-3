@@ -88,18 +88,26 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
+    private fun cleanUpTimer() {
+        timer?.cancel()
+        timer = null
+        elapsedSeconds = 0
+        playButton.setImageResource(R.drawable.baseline_play_arrow_24)
+        durationTextView.text = getDurationString()
+    }
+
     private fun onPlayButtonClick() {
-        // Pause
+        // Stop
         if (timer != null) {
-            timer?.cancel()
-            timer = null
+            cleanUpTimer()
             return
         }
 
-        // Reset when completed
-        if (elapsedSeconds >= maxDuration) {
-            elapsedSeconds = 0
-        }
+        cleanUpTimer()
+
+        // Update UI
+        durationTextView.text = getTimerStateString()
+        playButton.setImageResource(R.drawable.baseline_stop_24)
 
         timer = Timer().also {
             it.schedule(object : TimerTask() {
@@ -111,11 +119,10 @@ class DetailsActivity : AppCompatActivity() {
                         durationTextView.text = if (elapsedSeconds < maxDuration) getTimerStateString() else getDurationString()
                     }
                     if (elapsedSeconds >= maxDuration) {
-                        it.cancel()
-                        timer = null
+                        cleanUpTimer()
                     }
                 }
-            }, 0, 1000)
+            }, 1000, 1000)
         }
     }
 
