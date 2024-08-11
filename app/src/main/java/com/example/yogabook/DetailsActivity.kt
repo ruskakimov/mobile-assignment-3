@@ -61,7 +61,31 @@ class DetailsActivity : AppCompatActivity() {
         // Update UI data
         titleTextView.text = poseName
         poseImageView.setImageResource(imageResId)
+        durationTextView.text = getDurationString()
         playButton.setOnClickListener { onPlayButtonClick() }
+    }
+
+    private fun getDurationString(): String {
+        return "Duration – ${getTimeString(maxDuration)}"
+    }
+
+    private fun getTimerStateString(): String {
+        return "Time left – ${getTimeString(maxDuration - elapsedSeconds)}"
+    }
+
+    private fun getTimeString(seconds: Int): String {
+        return if (seconds < 60) {
+            "$seconds sec"
+        } else {
+            val M = seconds / 60
+            val S = seconds % 60
+
+            if (S == 0) {
+                "$M min"
+            } else {
+                "$M min $S sec"
+            }
+        }
     }
 
     private fun onPlayButtonClick() {
@@ -70,7 +94,7 @@ class DetailsActivity : AppCompatActivity() {
                 elapsedSeconds++
                 runOnUiThread {
                     // Update the UI here
-                    durationTextView.text = "Time left – ${maxDuration - elapsedSeconds} sec"
+                    durationTextView.text = if (elapsedSeconds < maxDuration) getTimerStateString() else getDurationString()
                 }
                 if (elapsedSeconds >= maxDuration) {
                     timer.cancel()
