@@ -22,6 +22,7 @@ class DetailsActivity : AppCompatActivity() {
     // Intent data
     var poseName = ""
     var imageResId = 0
+    var difficulty = Difficulty.EASY
     var maxDuration = 10
 
     // UI elements
@@ -46,6 +47,8 @@ class DetailsActivity : AppCompatActivity() {
         // Retrieve data from the intent
         poseName = intent.getStringExtra("poseName") ?: "?"
         imageResId = intent.getIntExtra("poseImageResId",0)
+        difficulty = Difficulty.valueOf(intent.getStringExtra("difficulty") ?: "EASY")
+        maxDuration = intent.getIntExtra("durationSeconds", 10)
 
         // UI elements
         toolbar = findViewById(R.id.toolbar)
@@ -64,8 +67,14 @@ class DetailsActivity : AppCompatActivity() {
         // Update UI data
         titleTextView.text = poseName
         poseImageView.setImageResource(imageResId)
+        difficultyTextView.text = "Difficulty – ${difficulty.name.lowercase().replaceFirstChar { it.uppercase() }}"
         durationTextView.text = getDurationString()
         playButton.setOnClickListener { onPlayButtonClick() }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanUpTimer()
     }
 
     private fun getDurationString(): String {

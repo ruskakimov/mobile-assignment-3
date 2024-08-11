@@ -14,19 +14,25 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-data class Pose(val name: String, val imageResId: Int)
+enum class Difficulty {
+    EASY,
+    MEDIUM,
+    HARD
+}
+
+data class Pose(val name: String, val imageResId: Int, val durationSeconds: Int, val difficulty: Difficulty)
 
 val poses = listOf(
-    Pose("Cat", R.drawable.pose_cat),
-    Pose("Cow", R.drawable.pose_cow),
-    Pose("Banana", R.drawable.pose_banana),
-    Pose("Bound Angle", R.drawable.pose_bound_angle),
-    Pose("Box Neutral", R.drawable.pose_box_neutral),
-    Pose("Butterfly", R.drawable.pose_butterfly),
-    Pose("Chair", R.drawable.pose_chair),
-    Pose("Downward Dog", R.drawable.pose_downward_dog),
-    Pose("Goddess", R.drawable.pose_goddess),
-    Pose("Crescent Lunge on the Knee", R.drawable.pose_warrior_kneeling),
+    Pose("Cat", R.drawable.pose_cat, 30, Difficulty.MEDIUM),
+    Pose("Cow", R.drawable.pose_cow, 30, Difficulty.MEDIUM),
+    Pose("Banana", R.drawable.pose_banana, 120, Difficulty.EASY),
+    Pose("Bound Angle", R.drawable.pose_bound_angle, 90, Difficulty.EASY),
+    Pose("Box Neutral", R.drawable.pose_box_neutral, 45, Difficulty.EASY),
+    Pose("Butterfly", R.drawable.pose_butterfly, 10, Difficulty.HARD),
+    Pose("Chair", R.drawable.pose_chair, 90, Difficulty.MEDIUM),
+    Pose("Downward Dog", R.drawable.pose_downward_dog, 30, Difficulty.MEDIUM),
+    Pose("Goddess", R.drawable.pose_goddess, 180, Difficulty.MEDIUM),
+    Pose("Crescent Lunge on the Knee", R.drawable.pose_warrior_kneeling, 30, Difficulty.HARD),
 )
 
 class MainActivity : AppCompatActivity(), OnCardClickListener {
@@ -53,6 +59,8 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra("poseName", pose.name)
         intent.putExtra("poseImageResId", pose.imageResId)
+        intent.putExtra("durationSeconds", pose.durationSeconds)
+        intent.putExtra("difficulty", pose.difficulty.name)
         startActivity(intent)
     }
 }
