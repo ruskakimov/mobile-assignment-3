@@ -3,12 +3,15 @@ package com.example.yogabook
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -54,6 +57,9 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         val poseAdapter = PoseAdapter(poses, this)
         recyclerView.adapter = poseAdapter
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
     }
 
     override fun onCardClick(pose: Pose) {
@@ -63,6 +69,22 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
         intent.putExtra("durationSeconds", pose.durationSeconds)
         intent.putExtra("difficulty", pose.difficulty.name)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_open_dialog -> {
+                val dialogFragment = InfoDialogFragment()
+                dialogFragment.show(supportFragmentManager, "info_dialog")
+                true
+            }
+            else -> true
+        }
     }
 }
 
