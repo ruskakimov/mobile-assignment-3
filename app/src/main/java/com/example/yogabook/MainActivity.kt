@@ -1,10 +1,6 @@
 package com.example.yogabook
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,10 +37,6 @@ val poses = listOf(
 
 class MainActivity : AppCompatActivity(), OnCardClickListener {
 
-    companion object {
-        const val CHANNEL_ID = "timer_channel"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,9 +54,6 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         val poseAdapter = PoseAdapter(poses, this)
         recyclerView.adapter = poseAdapter
-
-        // Create the notification channel
-        createNotificationChannel()
     }
 
     override fun onCardClick(pose: Pose) {
@@ -74,19 +63,6 @@ class MainActivity : AppCompatActivity(), OnCardClickListener {
         intent.putExtra("durationSeconds", pose.durationSeconds)
         intent.putExtra("difficulty", pose.difficulty.name)
         startActivity(intent)
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = "Timer Alerts"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, channelName, importance).apply {
-                description = "Your Channel Description"
-            }
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 }
 

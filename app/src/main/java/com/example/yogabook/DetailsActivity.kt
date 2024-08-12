@@ -1,5 +1,11 @@
 package com.example.yogabook
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageButton
@@ -9,12 +15,20 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.util.Timer
 import java.util.TimerTask
 
 class DetailsActivity : AppCompatActivity() {
+
+    companion object {
+        const val CHANNEL_ID = "timer_channel"
+    }
+
     // Timer state
     var timer: Timer? = null
     var elapsedSeconds = 0
@@ -111,6 +125,8 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun onPlayButtonClick() {
+        requestNotificationPermission()
+
         // Stop
         if (timer != null) {
             cleanUpTimer()
@@ -133,10 +149,56 @@ class DetailsActivity : AppCompatActivity() {
                     }
                     if (elapsedSeconds >= maxDuration) {
                         cleanUpTimer()
+                        showNotification()
                     }
                     elapsedSeconds++
                 }
             }, 0, 1000)
+        }
+    }
+
+    private fun showNotification() {
+        // Create the notification channel (only needed for Android 8.0+)
+        createNotificationChannel()
+
+        // Build the notification
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Pose Complete.")
+            .setContentText("You can rest now or start another pose!")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        val hasPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+
+        if (hasPermission) {
+            with(NotificationManagerCompat.from(this)) {
+                notify(1, builder.build())
+            }
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        val hasPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+
+        if (!hasPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                0
+            )
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = "Timer Alerts"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, channelName, importance).apply {
+                description = "Your Channel Description"
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 
