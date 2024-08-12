@@ -163,7 +163,7 @@ class DetailsActivity : AppCompatActivity() {
 
         // Build the notification
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.baseline_timer_24)
             .setContentTitle("Pose Complete.")
             .setContentText("You can rest now or start another pose!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
